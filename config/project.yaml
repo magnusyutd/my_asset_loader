@@ -1,0 +1,12 @@
+# content     = Project config
+# author      = Magnus Yu <magnusyu.com>
+
+project_path: $PROJECT_ROOT/_project
+
+# Maya settings
+maya_batch_path: $PROJECT_ROOT/exe/windows/maya.bat
+maya_native_extensions:
+  - .ma
+  - .mb
+maya_command_port: 7001
+maya_command_host: localhost

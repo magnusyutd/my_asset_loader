@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>pyMyAssetLoader</class>
+ <widget class="QWidget" name="pyMyAssetLoader">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>949</width>
+    <height>391</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>1</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>My Asset Loader</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="my_asset_loader.qrc">
+    <normaloff>:/src/img/my_asset_loader.png</normaloff>:/src/img/my_asset_loader.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* Main Window and Container - Deepened to #2b2b2b */
+QWidget {
+    background-color: #2b2b2b;
+    color: #e0e0e0;
+    font-family: &quot;Inter&quot;, &quot;Segoe UI&quot;, sans-serif;
+    font-size: 12px;
+}
+
+/* TreeView / Content Browser Area - High Contrast Dark */
+QTreeView, QListView, QTableWidget {
+    background-color: #1e1e1e;
+    border: 1px solid #3f3f3f;
+    alternate-background-color: #252525;
+    /* This ensures the selection spans the full width of the row */
+    selection-background-color: #4879b2; 
+    selection-color: white;
+    outline: none;
+}
+
+QTreeView::item {
+    height: 28px;
+    padding-left: 4px;
+}
+
+QTreeView::item:hover {
+    background-color: #4879b2;
+}
+
+QTreeView::item:selected {
+    background-color: #4879b2; 
+    color: white;
+}
+
+QTableWidget::item {
+    padding-left: 6px; 
+    padding-top: 0px;
+    padding-right: 6px; 
+    padding-bottom: 0px; 
+    margin: 0px;  
+    border-bottom: 1px solid #2a2a2a; 
+}
+
+/* Headers - Professional Charcoal */
+QHeaderView::section {
+    background-color: #333333;
+    color: #aaaaaa;
+    padding: 2px;
+    border: 1px solid #252525;
+    font-weight: bold;
+	text-transform: uppercase;
+}
+
+/* Style the sort indicator arrows */
+QHeaderView::up-arrow {
+    image: url(:/src/img/arrow_up.png);
+    width: 10px;
+    height: 10px;
+    padding-right: 5px;
+}
+
+QHeaderView::down-arrow {
+    image: url(:/src/img/arrow_down.png);
+    width: 10px;
+    height: 10px;
+    padding-right: 5px;
+}
+
+/* Search Bar - Fixed Text Color Visibility */
+QLineEdit {
+    background-color: #1a1a1a;
+    border: 1px solid #3f3f3f;
+    border-radius: 10px;
+    padding: 4px 10px;
+    color: #e0e0e0;
+}
+
+QLineEdit &gt; QToolButton {
+    qproperty-icon: url(:/src/img/search_close.png);
+}
+
+QLineEdit:focus {
+    border: 1px solid #4879b2;
+}
+
+/* Action Button - The &quot;Gold&quot; Accent */
+QPushButton#loadAssetBtn {
+    background-color: #d4a017;
+    color: #1a1a1a;
+    font-weight: bold;
+    font-size: 13px;
+    border-radius: 4px;
+    border: none;
+    padding: 12px;
+}
+
+QPushButton#loadAssetBtn:hover {
+    background-color: #ffbf00;
+}
+
+QPushButton#loadAssetBtn:pressed {
+    background-color: #b88a12;
+}
+
+/* Tabs - Clean &amp; Flat */
+QTabWidget::pane {
+    border: 1px solid #3f3f3f;
+    background-color: #1e1e1e;
+    top: -1px;
+}
+
+QTabBar::tab {
+    background-color: #2b2b2b;
+    color: #888888;
+    padding: 8px 20px;
+    border: 1px solid #3f3f3f;
+	border-radius: 5px;
+    border-bottom: none;
+    margin-right: 1px;
+}
+
+QTabBar::tab:selected {
+    background-color: #1e1e1e;
+    color: #4879b2;
+    border-bottom: 2px solid #4879b2;
+}
+
+QScrollBar:vertical {
+    background: #2b2b2b;
+    /* FIX 1: You must specify '1px solid' and a color for borders to work */
+    border: 1px solid #2b2b2b; 
+    width: 10px;
+    margin: 0px;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+QScrollBar::handle:vertical {
+    background: #444444;
+    border: none;
+    min-height: 20px;
+    border-radius: 4px;
+}
+
+/* Keep this to hide the arrow buttons */
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+QComboBox { 
+    border: 1px solid #3f3f3f;
+    border-radius: 4px;
+    background-color: #1a1a1a; /* Deeper black for input area */
+    padding: 4px 5px;
+    color: #e0e0e0;
+}
+
+QComboBox:hover {
+    border: 1px solid #4879b2; /* Modern Blue highlight */
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 24px;
+    border: none;
+}
+
+/* Custom Down Arrow (Triangle) if you don't want to rely on an image file */
+QComboBox::down-arrow {
+    image: url(:/src/img/drop_down.png); /* Keeps your existing image */
+    width: 12px;
+    height: 12px;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #1e1e1e;
+    border: 1px solid #3f3f3f;
+    selection-background-color: #4879b2;
+    selection-color: #ffffff;
+    outline: none;
+}
+
+/* Space out the items in the list */
+QComboBox QAbstractItemView::item {
+    min-height: 28px;
+    padding-left: 10px;
+    color: #aaaaaa;
+}
+
+QComboBox QAbstractItemView::item:hover {
+    background-color: #3d3d3d;
+    color: #ffffff;
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_7">
+   <item row="1" column="0">
+    <widget class="QPushButton" name="btn_load">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Inter,Segoe UI,sans-serif</family>
+       <pointsize>-1</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#btn_load { 
+    background-color: #fcc573; 
+    color: #000000;
+    border-radius: 8px;
+}
+
+#btn_load:hover { 
+    background-color: #fdd79b; 
+}
+
+#btn_load:pressed { 
+    background-color: #b68f55; 
+    color: #050505; 
+}</string>
+     </property>
+     <property name="text">
+      <string>LOAD ASSET</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QSplitter" name="splitter">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="handleWidth">
+      <number>8</number>
+     </property>
+     <property name="childrenCollapsible">
+      <bool>false</bool>
+     </property>
+     <widget class="QWidget" name="wg_folder" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>200</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_5">
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>5</number>
+       </property>
+       <item row="0" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="spacing">
+          <number>3</number>
+         </property>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QComboBox" name="combo_project">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QComboBox { 
+    border: 1px solid #3f3f3f;
+    border-radius: 4px;
+    background-color: #1a1a1a; /* Deeper black for input area */
+    padding: 4px 10px;
+    color: #e0e0e0;
+}</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>project1</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>project2</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QTreeWidget" name="tree_folder">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <column>
+            <property name="text">
+             <string notr="true"/>
+            </property>
+           </column>
+           <item>
+            <property name="text">
+             <string>characters</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>char_greyhound</string>
+             </property>
+            </item>
+           </item>
+           <item>
+            <property name="text">
+             <string>environment</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>set</string>
+             </property>
+            </item>
+           </item>
+           <item>
+            <property name="text">
+             <string>prop</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>sword</string>
+             </property>
+            </item>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="wg_asset" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>420</width>
+        <height>0</height>
+       </size>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>9</number>
+       </property>
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item row="0" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <property name="spacing">
+          <number>3</number>
+         </property>
+         <property name="leftMargin">
+          <number>5</number>
+         </property>
+         <property name="rightMargin">
+          <number>5</number>
+         </property>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLineEdit" name="edit_asset">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="placeholderText">
+              <string>Search Assets</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QTableWidget" name="table_asset">
+           <property name="styleSheet">
+            <string notr="true">QHeaderView::section {
+    background-color: #333333;
+    color: #aaaaaa;
+    padding: 1px;
+    border: 1px solid #252525;
+    font-weight: bold;
+	text-transform: uppercase;
+}
+
+/* Style the sort indicator arrows */
+QHeaderView::up-arrow {
+    image: url(:/src/img/arrow_up.png);
+    width: 10px;
+    height: 10px;
+    padding-right: 5px;
+}
+
+QHeaderView::down-arrow {
+    image: url(:/src/img/arrow_down.png);
+    width: 10px;
+    height: 10px;
+    padding-right: 5px;
+}
+
+QTableCornerButton::section {
+    background-color: #2b2b2b;
+    border: 1px solid #252525;
+}
+
+QComboBox#versionCombo {
+    background-color: #1e1e1e;
+    margin: 0px;
+    padding: 0px;
+    border-radius: 0px;
+    min-width: 0px;
+    border-style:none
+}
+
+QComboBox#versionCombo::drop-down {
+    subcontrol-origin: margin;
+    subcontrol-position: top right;
+    width: 20px;
+    margin: 0px;
+    padding: 0px;
+    border: none;
+}
+
+QComboBox#versionCombo QAbstractItemView::item {
+    padding-left: 0px;
+}</string>
+           </property>
+           <property name="sortingEnabled">
+            <bool>true</bool>
+           </property>
+           <attribute name="verticalHeaderVisible">
+            <bool>true</bool>
+           </attribute>
+           <row>
+            <property name="text">
+             <string/>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string/>
+            </property>
+           </row>
+           <column>
+            <property name="text">
+             <string>Name</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Dept</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Status</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Version</string>
+            </property>
+           </column>
+           <item row="0" column="0">
+            <property name="text">
+             <string>1</string>
+            </property>
+           </item>
+           <item row="1" column="0">
+            <property name="text">
+             <string>2</string>
+            </property>
+           </item>
+           <item row="1" column="1">
+            <property name="text">
+             <string/>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="wg_preview" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>280</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <property name="leftMargin">
+        <number>5</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>5</number>
+       </property>
+       <item row="0" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QTabWidget" name="tabWidget">
+           <property name="currentIndex">
+            <number>0</number>
+           </property>
+           <widget class="QWidget" name="tab_preview">
+            <attribute name="title">
+             <string>Preview</string>
+            </attribute>
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="0" column="0">
+              <widget class="QWidget" name="wg_preview_video" native="true">
+               <property name="minimumSize">
+                <size>
+                 <width>180</width>
+                 <height>160</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+               <layout class="QGridLayout" name="gridLayout">
+                <item row="0" column="0">
+                 <layout class="QGridLayout" name="preview_gridLayout"/>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="tab_version">
+            <attribute name="title">
+             <string>Info</string>
+            </attribute>
+            <layout class="QGridLayout" name="gridLayout_4">
+             <item row="0" column="0">
+              <widget class="QTreeWidget" name="tree_property">
+               <property name="styleSheet">
+                <string notr="true">QHeaderView::section {
+    background-color: #333333;
+    color: #aaaaaa;
+    padding: 2px;
+    border: 1px solid #252525;
+    font-weight: bold;
+	text-transform: uppercase;
+}
+
+/* Style the sort indicator arrows */
+QHeaderView::up-arrow {
+    image: url(:/src/img/arrow_up.png);
+    width: 10px;
+    height: 10px;
+    padding-right: 5px;
+}
+
+QHeaderView::down-arrow {
+    image: url(:/src/img/arrow_down.png);
+    width: 10px;
+    height: 10px;
+    padding-right: 5px;
+}</string>
+               </property>
+               <property name="sortingEnabled">
+                <bool>true</bool>
+               </property>
+               <column>
+                <property name="text">
+                 <string>Type</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Details</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>combo_project</tabstop>
+  <tabstop>tree_folder</tabstop>
+  <tabstop>table_asset</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>btn_load</tabstop>
+  <tabstop>tree_property</tabstop>
+ </tabstops>
+ <resources>
+  <include location="my_asset_loader.qrc"/>
+ </resources>
+ <connections/>
+</ui>

@@ -1,0 +1,14 @@
+<RCC>
+  <qresource prefix="/src">
+    <file>img/search_close.png</file>
+    <file>img/arrow_down.png</file>
+    <file>img/arrow_up.png</file>
+    <file>img/my_asset_loader.png</file>
+    <file>img/my_asset_loader_preview.png</file>
+    <file>img/folder_close.png</file>
+    <file>img/folder_open.png</file>
+    <file>img/drop_down.png</file>
+    <file>img/filter.png</file>
+    <file>img/search.png</file>
+  </qresource>
+</RCC>
