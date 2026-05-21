@@ -1,7 +1,6 @@
 # content = Test script for project folder scanning and tree building.
 # author  = Magnus Yu <magnusyu.com>
 
-from os import path
 import yaml
 import re
 from pathlib import Path
@@ -52,9 +51,13 @@ def find_proj_sub_folders(path):
     return project_sub_folders
 
 def build_folder_tree(project_sub_folders:dict, root_path:str):
-    """
-    Build a hierarchical tree view of sub_folders only (excluding the project folder itself).
-    Returns a nested dictionary representation of the folder structure.
+    """ Build a hierarchical tree view of sub_folders only (excluding the project folder itself).
+
+    ARGS:
+        project_sub_folders: A dictionary of sub-folder names and their paths
+        root_path: The root path of the project
+
+    RETURN: A nested dictionary representing the folder tree
     """
     tree = {}
 

@@ -83,14 +83,13 @@ class AssetLoader(ui_utils.UI):
 
 
     def closeEvent(self, event):
-        """Clean up the video player when the main window is closed."""
+        """Clean up video player when main window is closed."""
         if self.vid_player:
             self.vid_player.cleanup()
         QtWidgets.QMainWindow.closeEvent(self, event)
 
     def connect_interface(self):
-        """ Handles all signals/slots when UI is launched.
-        """
+        """ Handles all signals/slots when UI is launched."""
         # Functions
         self.add_project_combo()
         self.add_asset_tree()
@@ -178,8 +177,7 @@ class AssetLoader(ui_utils.UI):
         return project_folders
 
     def add_asset_tree(self) -> None:
-        """ Load asset information and populate asset tree widget.
-        """
+        """ Load asset information and populate asset tree widget."""
         project_name = self.ui.combo_project.currentText()
         project_path = self._project_info.get(project_name)
         folder_tree = self.find_asset_trees(project_path)
@@ -327,7 +325,7 @@ class AssetLoader(ui_utils.UI):
         self.update_button_enabled_state()
 
     def add_version_combo(self, row:int, versions:list) -> None:
-        """ Add a combo box to the version cell in the asset table.
+        """ Add a combo box to the version cell in asset table.
 
         ARGS:
             row: The row index in the asset table
@@ -510,6 +508,15 @@ class AssetLoader(ui_utils.UI):
 
     # Load Button State and Text *************************************************************************************************
     def is_asset_supported(self, asset_name: str, asset_type: str, version: str) -> bool:
+        """ Check if the asset is supported based on its type and file format.
+
+        ARGS:
+            asset_name: The name of the asset
+            asset_type: The type of the asset (e.g., "geo", "rig")
+            version: The version of the asset
+
+        RETURN: True if the asset is supported, False otherwise
+        """
         supported_formats = SUPPORTED_NATIVE | SUPPORTED_OTHER_FORMATS
         if not asset_name or Path(asset_name).suffix not in supported_formats:
             return False
@@ -611,8 +618,7 @@ class AssetLoader(ui_utils.UI):
 
     # Asset Loading **************************************************************************************************************
     def on_load_asset(self) -> None:
-        """ Handle load asset button click.
-        """
+        """ Handle load asset button click."""
         asset_table_info = {}
 
         # Prevent rapid clicks from spawning multiple Maya instances
@@ -742,9 +748,7 @@ class AssetLoader(ui_utils.UI):
 
     # Search Asset Table *********************************************************************************************************
     def filter_asset_table(self) -> None:
-        """
-        Apply text filter to animation table
-        """
+        """ Apply text filter to animation table"""
         text = self.ui.edit_asset.text().strip().lower()
         # Split text if there are spaces or comma
         text = [t for t in re.split(r'[,\s]+', text.strip()) if t]
@@ -763,9 +767,10 @@ class AssetLoader(ui_utils.UI):
             self.ui.table_asset.setRowHidden(r, not row_match)
 
     def queue_table_filter(self, text: str) -> None:
-        """
-        Queue the table filter to avoid filtering every keystroke
-        :param: text(str) - Text that QLineEdit emits on change, not used directly
+        """ Queue the table filter to avoid filtering every keystroke
+
+        ARGS:
+            text: Current text in the search box (not used directly, but required for signal)
         """
         # Small delay to avoid filtering every keystroke (adjust as needed)
         self.search_timer.start(150)

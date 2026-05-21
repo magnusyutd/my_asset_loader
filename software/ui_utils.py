@@ -45,9 +45,8 @@ class UI(QtWidgets.QMainWindow):
 
 
     def closeEvent(self, event):
-        """Override the closeEvent to emit a custom signal when the window is closed.
-        """
-        print ("UI closed")
+        """Override the closeEvent to emit a custom signal when the window is closed."""
+        logger.info("UI closed")
         self.closed.emit()
         super(UI, self).closeEvent(event)
 
@@ -69,9 +68,8 @@ class UI(QtWidgets.QMainWindow):
 
     @classmethod
     def remove_ui(cls, ui_name: str):
-        """Remove existing top-level windows with the same object name.
-        """
-        print(f"Attempting to remove UI: {ui_name}")
+        """Remove existing top-level windows with same object name."""
+        logger.info(f"Attempting to remove UI: {ui_name}")
         existing_windows = []
 
         maya_main_window = cls.get_maya_main_window()
@@ -92,7 +90,7 @@ class UI(QtWidgets.QMainWindow):
                 continue
             seen.add(widget_id)
 
-            print(f"Found and closing UI: {child.objectName()}")
+            logger.info(f"Found and closing UI: {child.objectName()}")
             child.setParent(None)
             child.close()
             child.deleteLater()

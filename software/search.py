@@ -53,6 +53,7 @@ def find_proj_folders(root_path: Path) -> dict:
 
     ARGS:
         root_path: The root directory path to search for project folders
+
     RETURN: dict of folder names and their Path objects
     """
     folders = {}
@@ -150,7 +151,7 @@ def find_asset_details(asset_paths: dict) -> dict:
 
 def find_data_by_key(data:dict, target:str):
     """ Recursively search for a key in nested dictionaries and return its value.
-    
+
     ARGS:
         data: The dictionary to search
         target: The key to find
@@ -185,14 +186,12 @@ def get_project_path() -> Path:
         return Path(expanded_path)
 
 def is_version_path(path: Path) -> bool:
-    """ Check if the given path is a version folder.    
-    """
+    """ Check if the given path is a version folder."""
     is_ver_path = any(re.match(r'^v\d+$', part) for part in path.parts)
     return is_ver_path
 
 def is_filter_folder(path: Path) -> bool:
-    """ Check if the given path contains any filter keywords like "textures"
-    """
+    """ Check if the given path contains any filter keywords like "textures""""
     is_filter = any(part.lower() in ["textures"] for part in path.parts)
     return is_filter
 
@@ -214,11 +213,9 @@ folder_path = project_folders.get(folder_name)
 print(f"Folder: {folder_name}")
 project_sub_folders = find_proj_sub_folders(folder_path)
 print ("sub_folders: ", project_sub_folders)
-# print(f"Flat view: {[p.name for p in project_sub_folders]}\n")
 print(f"Flat view: {list(project_sub_folders.keys())}\n")
 
 # Build and display tree view
-# folder_tree = build_folder_tree(project_sub_folders, folder_path)
 folder_tree = build_folder_tree(project_sub_folders)
 print("Folder Tree Structure:")
 print (folder_tree)
