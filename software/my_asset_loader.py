@@ -9,10 +9,10 @@ from pathlib import Path
 
 from scripts.external.Qt import QtWidgets, QtCore, QtGui, QtCompat
 
-import search
+import software.search as search
 import load
-import ui_utils
-import dcc_context
+import software.ui_utils as ui_utils
+import software.dcc_context as dcc_context
 
 import importlib
 importlib.reload(ui_utils)
@@ -20,7 +20,7 @@ importlib.reload(search)
 importlib.reload(load)
 importlib.reload(dcc_context)
 
-import my_asset_loader_rc
+import software.my_asset_loader_rc as my_asset_loader_rc
 
 # Force register resources (important in Maya reload sessions)
 if hasattr(my_asset_loader_rc, "qCleanupResources"):
@@ -51,6 +51,7 @@ SUPPORTED_OTHER_FORMATS = {".fbx", ".obj"}
 
 _instance_port = 19871
 _quit_msg = b"QUIT"
+
 
 class AssetLoader(ui_utils.UI):
     closed = QtCore.Signal()
@@ -259,14 +260,11 @@ class AssetLoader(ui_utils.UI):
             folder_name = item.text(0)
             sub_folder_name = ""
 
-        details = self.find_asset_details(folder_name, sub_folder_name)
-        self.add_asset_table_details(details)
+        asset_details = self.find_asset_details(folder_name, sub_folder_name)
+        self.add_asset_table_details(asset_details)
 
-    def add_asset_table_details(self, details:dict) -> None:
-        """
-        ARGS: details: The asset details to populate
-        """
-        self._asset_details = details
+    def add_asset_table_details(self, asset_details:dict) -> None:
+        self._asset_details = asset_details
         filter_assets = (".mp4", ".mov", ".jpg", ".jpeg", ".png")
 
         if not self._asset_details:
@@ -318,9 +316,7 @@ class AssetLoader(ui_utils.UI):
             self.add_version_combo(row, list(versions.keys()))
 
         # Keep vertical header, but no numbers/text
-        self.ui.table_asset.setVerticalHeaderLabels(
-            [""] * self.ui.table_asset.rowCount()
-        )
+        self.ui.table_asset.setVerticalHeaderLabels([""] * self.ui.table_asset.rowCount())
 
         # Adjust asset table
         self.ui.table_asset.resizeRowsToContents()
@@ -357,8 +353,8 @@ class AssetLoader(ui_utils.UI):
     def on_version_changed(self, version:str) -> None:
         """ Handles version combo box changes.
 
-                ARGS:
-            version: The newly selected version string
+        ARGS:
+            version: Newly selected version string
         """
         combo_box = self.sender()
         if not isinstance(combo_box, QtWidgets.QComboBox):
@@ -384,7 +380,8 @@ class AssetLoader(ui_utils.UI):
         self.update_button_enabled_state()
 
     def update_asset_row_info(self, row:int, name:str, ver_number:str) -> None:
-        """
+        """ Update the asset type and status in the asset table based on the selected version.
+
         ARGS:
             row: The row index of the asset in the QTableWidget to update
             name: The name of the asset to find in the asset details
@@ -402,12 +399,12 @@ class AssetLoader(ui_utils.UI):
 
     # Property and Info Display **************************************************************************************************
     def add_property_view(self, asset_name:str, version:str) -> None:
-        """ Populate the property tree with asset version details.
+        """ Populate property tree with asset version details.
 
         ARGS:
-            asset_name: The name of the asset
-            asset_status: The status of the asset
-            version: The version of the asset
+            asset_name: Name of asset
+            asset_status: Status of asset
+            version: Version of asset
         """
         self.ui.tree_property.clear()
         skip_keys = ("path", "render_path")
@@ -432,7 +429,7 @@ class AssetLoader(ui_utils.UI):
 
         self.ui.tree_property.expandAll()
 
-    def add_video_preview(self, asset_name:str, version:str) -> None:
+    def add_video_preview(self, asset_name:str, version:str):
         _, asset_path = self.get_version_info(asset_name, version)
 
         if version.endswith("0"):
@@ -444,8 +441,7 @@ class AssetLoader(ui_utils.UI):
         self.play_video(video_path, image_path)
 
     def on_asset_selection(self):
-        """ Handle asset table selection changes.
-        """
+        """ Handle asset table selection changes."""
         self.get_selected_items()
         if not self._selected_items:
             self.ui.tree_property.clear()
@@ -544,9 +540,6 @@ class AssetLoader(ui_utils.UI):
         self.get_selected_items()
         if self._selected_items:
             return self._selected_items
-
-        # self.get_non_selected_items()
-        # return self._non_selected_items
 
     def get_load_action(self, asset_type: str) -> str:
         """Map asset type to the actual operation used by load_asset."""

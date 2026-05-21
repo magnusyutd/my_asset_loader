@@ -7,7 +7,7 @@ import sys
 import logging
 from pathlib import Path
 
-import dcc_context
+import software.dcc_context as dcc_context
 
 try:
     import maya.OpenMayaUI as omui
@@ -22,7 +22,7 @@ except ImportError:
     except ImportError:
         shiboken = None
 
-import search
+import software.search as search
 import load
 
 from scripts.external.Qt import QtCore, QtWidgets, QtMultimedia, QtMultimediaWidgets, QtGui
@@ -269,17 +269,6 @@ class VideoPlayer(QtWidgets.QWidget):
         preview_layout.setAlignment(QtCore.Qt.AlignTop)
         preview_layout.addWidget(self.media_stack, 1)
         preview_layout.addWidget(self.controls_widget, 0)
-
-        # if attach_to is not None:
-        #     if isinstance(attach_to, QtWidgets.QGridLayout):
-        #         attach_to.addWidget(self.video_view, 0, 0)
-        #         attach_to.addWidget(self.controls_widget, 1, 0)
-        #         attach_to.setRowStretch(0, 1)
-        #         attach_to.setRowStretch(1, 0)
-        #     else:
-        #         # QVBoxLayout / QHBoxLayout
-        #         attach_to.addWidget(self.video_view, 1)
-        #         attach_to.addWidget(self.controls_widget, 0)
 
         # Internal layout on self (important)
         root = QtWidgets.QVBoxLayout(self)

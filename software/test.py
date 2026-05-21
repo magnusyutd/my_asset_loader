@@ -75,29 +75,11 @@ def build_folder_tree(project_sub_folders:dict, root_path:str):
 
     return tree
 
+
 project_path = get_project_path()
 
 skip_folder = ["textures"]
 version_cache = {}  # Cache to avoid re-scanning same parent directories
-
-# # Check all the given assets in the given folder
-# for item in project_path.rglob("*"):
-#     if item.is_file() and item.parent.name not in skip_folder:
-#         grandparent = item.parent.parent
-
-#         # Check cache first
-#         if grandparent not in version_cache:
-#             version_cache[grandparent] = get_latest_version_folder(grandparent)
-
-#         latest_version = version_cache[grandparent]
-
-#         if latest_version:
-#             # Only include files from the latest version folder
-#             if item.parent == latest_version:
-#                 print(f"{item.parent.name}/{item.name}")
-#         elif not is_version_folder_path(item):
-#             # Only include files that are not within any version folder
-#             print(item.name)
 
 project_folders = find_proj_folders(project_path)
 

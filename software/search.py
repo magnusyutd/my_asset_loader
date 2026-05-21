@@ -1,6 +1,6 @@
 # content     = Functions to search and retrieve project folder structure.
 # dependency  = pyyaml
-# how_to      = Define project folder structure in '6_config/project.yaml'.
+# how_to      = Define project folder structure in 'config/project.yaml'.
 # author      = Magnus Yu <magnusyu.com>
 
 import os
