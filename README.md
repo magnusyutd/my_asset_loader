@@ -9,7 +9,8 @@ My Asset Loader is in active development. Features are being refined to create a
 ## Introduction
 My Asset Loader simplifies asset management in Maya. Unlike the complex rig loader, this tool provides an **intuitive file browser interface** for finding, previewing, and loading assets quickly. Instead of manually shifting through project folders, browse all subfolders and locate relevant assets in seconds.
 
-gi
+[![asset_loader_introduction](https://github-production-user-asset-6210df.s3.amazonaws.com/254814304/595819573-9f3a568f-ec63-40fb-9a8e-31daa2d4c66b.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20260521%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260521T015943Z&X-Amz-Expires=300&X-Amz-Signature=a7f26f4d3dfac724365043e4c257139b456c3ee6d190d3655e91d351533923b7&X-Amz-SignedHeaders=host&response-content-type=image%2Fpng)](https://vimeo.com/1175982577)
+
 ## Environment
 - [x] **OS**: Windows
 - [x] **Software**: Maya
